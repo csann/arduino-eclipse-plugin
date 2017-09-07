@@ -98,7 +98,7 @@ public class TxtFile {
 	 * @return a list of all the menu option key value pairs
 	 */
 	public TreeMap<String, String> getMenus() {
-		TreeMap<String, String> ret = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+		TreeMap<String, String> ret = new TreeMap<>();
 		for (Entry<String, Map<String, String>> entry : this.fileContent.entrySet()) {
 			if (entry.getKey().equals(MENU)) {
 				for (Entry<String, String> e2 : entry.getValue().entrySet()) {

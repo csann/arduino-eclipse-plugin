@@ -2,6 +2,8 @@ package io.sloeber.core.tools;
 
 import java.io.File;
 
+import org.apache.commons.lang.ArrayUtils;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 
 import io.sloeber.core.api.BoardDescriptor;
@@ -23,7 +25,7 @@ public class Programmers extends TxtFile {
 		return fromBoards(new File(boardsFileName));
 	}
 
-	public static Programmers[] fromBoards(File boardsFile) {
+	private static Programmers[] fromBoards(File boardsFile) {
 		File BoardsFile1 = new Path(boardsFile.getParentFile().toString()).append(programmersFileName1).toFile();
 
 		File BoardsFile2 = new Path(boardsFile.getParentFile().toString()).append(programmersFileName2).toFile();
@@ -51,10 +53,10 @@ public class Programmers extends TxtFile {
 
 	}
 
-	public static String[] getUploadProtocols(String boardsFileName) {
+	public static String[] getUploadProtocols(BoardDescriptor boardsDescriptor) {
 		String[] ret = new String[1];
 		ret[0] = Defaults.getDefaultUploadProtocol();
-		Programmers allProgrammers[] = fromBoards(new File(boardsFileName));
+		Programmers allProgrammers[] = fromBoards(boardsDescriptor);
 		for (Programmers curprogrammer : allProgrammers) {
 			ret = curprogrammer.getAllNames(ret);
 		}
@@ -63,7 +65,14 @@ public class Programmers extends TxtFile {
 	}
 
 	public static Programmers[] fromBoards(BoardDescriptor boardsDescriptor) {
-		return fromBoards(boardsDescriptor.getReferencingBoardsFile());
+		File referencingBoardsFile=boardsDescriptor.getReferencingBoardsFile();
+		IPath referencedUploadPlatformPath=boardsDescriptor.getReferencedUploadPlatformPath();
+		if(referencedUploadPlatformPath==null) {
+			return fromBoards(referencingBoardsFile);
+		}
+		 Programmers[] ret1=fromBoards(referencingBoardsFile);
+		 Programmers[] ret2=fromBoards(referencedUploadPlatformPath.append(programmersFileName1).toFile());
+		return (Programmers[]) ArrayUtils.addAll(ret1,ret2);
 	}
 
 }

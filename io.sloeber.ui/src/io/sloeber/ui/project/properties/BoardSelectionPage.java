@@ -348,7 +348,7 @@ public class BoardSelectionPage extends AbstractCPropertyTab {
 
 	@Override
 	protected void updateData(ICResourceDescription cfg) {
-		this.myBoardID.saveConfiguration();
+
 		this.myBoardID = BoardDescriptor.makeBoardDescriptor(cfg.getConfiguration());
 		setValues(cfg.getConfiguration());
 	}

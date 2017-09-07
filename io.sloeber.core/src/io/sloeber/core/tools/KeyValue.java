@@ -11,7 +11,7 @@ public class KeyValue {
 	/**
 	 * convert a Map<string,String> to a string so it can be stored The strings
 	 * can not contain '\n' or '='
-	 * 
+	 *
 	 * @return a string representation of the map
 	 */
 	static public String makeString(Map<String, String> map) {
@@ -33,7 +33,7 @@ public class KeyValue {
 	 * @param options
 	 */
 	static public Map<String, String> makeMap(String options) {
-		Map<String, String> map = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+		Map<String, String> map = new TreeMap<>();
 		if (options != null) {
 			String[] lines = options.split(ENTRY_SEPARATOR);
 			for (String curLine : lines) {

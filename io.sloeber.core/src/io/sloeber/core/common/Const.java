@@ -48,14 +48,14 @@ public class Const {
 
 	public static final String ERASE_START = "A" + DOT;
 
-	public static final String ENV_KEY_UPLOAD_USE_1200BPS_TOUCH = ERASE_START + "UPLOAD.USE_1200BPS_TOUCH";
+	public static final String ENV_KEY_UPLOAD_USE_1200BPS_TOUCH = ERASE_START + "upload.use_1200bps_touch";
 
-	public static final String ENV_KEY_WAIT_FOR_UPLOAD_PORT = ERASE_START + "UPLOAD.WAIT_FOR_UPLOAD_PORT";
-	public static final String ENV_KEY_RESET_BEFORE_UPLOAD = ERASE_START + "UPLOAD.FORCE_RESET_BEFORE_UPLOAD";
-	public static final String ENV_KEY_NETWORK_PORT = ERASE_START + "NETWORK.PORT";
-	public static final String ENV_KEY_NETWORK_AUTH = ERASE_START + "NETWORK.AUTH";
+	public static final String ENV_KEY_WAIT_FOR_UPLOAD_PORT = ERASE_START + "upload.wait_for_upload_port";
+	public static final String ENV_KEY_RESET_BEFORE_UPLOAD = ERASE_START + "upload.force_reset_before_upload";
+	public static final String ENV_KEY_NETWORK_PORT = ERASE_START + "network.port";
+	public static final String ENV_KEY_NETWORK_AUTH = ERASE_START + "network.auth";
 
-	public static final String ENV_KEY_USE_ARCHIVER = ERASE_START + "BUILD.USE_ARCHIVER";
+	public static final String ENV_KEY_USE_ARCHIVER = ERASE_START + "build.use_archiver";
 
 	public static final String ENV_KEY_JANTJE_START = "JANTJE.";
 

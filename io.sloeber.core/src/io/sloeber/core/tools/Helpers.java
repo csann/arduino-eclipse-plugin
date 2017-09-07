@@ -77,13 +77,13 @@ import io.sloeber.core.managers.ToolDependency;
 public class Helpers extends Common {
 	private static final String ARDUINO_CORE_BUILD_FOLDER_NAME = "core";
 
-	private static final String ENV_KEY_BUILD_ARCH = ERASE_START + "BUILD.ARCH";
-	private static final String ENV_KEY_BUILD_GENERIC_PATH = ERASE_START + "BUILD.GENERIC.PATH";
-	private static final String ENV_KEY_HARDWARE_PATH = ERASE_START + "RUNTIME.HARDWARE.PATH";
-	private static final String ENV_KEY_PLATFORM_PATH = ERASE_START + "RUNTIME.PLATFORM.PATH";
-	private static final String ENV_KEY_REFERENCED_PLATFORM_PATH = ERASE_START + "RUNTIME.REFERENCED.PLATFORM.PATH";
+	private static final String ENV_KEY_BUILD_ARCH = ERASE_START + "build.arch";
+	private static final String ENV_KEY_BUILD_GENERIC_PATH = ERASE_START + "build.generic.path";
+	private static final String ENV_KEY_HARDWARE_PATH = ERASE_START + "runtime.hardware.path";
+	private static final String ENV_KEY_PLATFORM_PATH = ERASE_START + "runtime.platform.path";
+	private static final String ENV_KEY_REFERENCED_PLATFORM_PATH = ERASE_START + "runtime.referenced.platform.path";
 
-	private static final String ENV_KEY_COMPILER_PATH = ERASE_START + "COMPILER.PATH";
+	private static final String ENV_KEY_COMPILER_PATH = ERASE_START + "compiler.path";
 
 	private static final String ENV_KEY_JANTJE_MAKE_LOCATION = ENV_KEY_JANTJE_START + "MAKE_LOCATION";
 
@@ -500,7 +500,7 @@ public class Helpers extends Common {
 
 	private static void setTheEnvironmentVariablesAddAFile(IContributedEnvironment contribEnv,
 			ICConfigurationDescription confDesc, File envVarFile) {
-		setTheEnvironmentVariablesAddAFile(ERASE_START, contribEnv, confDesc, envVarFile, true);
+		setTheEnvironmentVariablesAddAFile(ERASE_START, contribEnv, confDesc, envVarFile, false);
 	}
 
 	/**
@@ -576,7 +576,7 @@ public class Helpers extends Common {
 			// if it is not a menu item add it
 			if (!currentPair.getKey().startsWith(Messages.Helpers_menu)) {
 				String keyString = MakeKeyString(currentPair.getKey());
-				String valueString = MakeEnvironmentString(currentPair.getValue(), Const.ERASE_START, true);
+				String valueString = MakeEnvironmentString(currentPair.getValue(), Const.ERASE_START, false);
 				if (isLocalKey(currentPair.getKey())) {
 					localVariables.add(new EnvironmentVariable(keyString, valueString));
 				} else {
@@ -595,7 +595,7 @@ public class Helpers extends Common {
 				String menuID = keySplit[1];
 				String menuItemID = keySplit[2];
 
-				if (menuItemID.equalsIgnoreCase(options.get(menuID.toUpperCase()))) {
+				if (menuItemID.equalsIgnoreCase(options.get(menuID))) {
 					// we also need to skip the name
 					String StartValue = MENU + DOT + menuID + DOT + menuItemID + DOT; // $NON-NLS-1$
 					try {
@@ -650,7 +650,7 @@ public class Helpers extends Common {
 		}
 	}
 
-	private static void setTheEnvironmentVariablesAddThePlatformInfo(BoardDescriptor boardDescriptor,
+	private static void setTheEnvironmentVariablesAddThePlatformTools(BoardDescriptor boardDescriptor,
 			IContributedEnvironment contribEnv, ICConfigurationDescription confDesc) {
 		File referencingPlatformFile = boardDescriptor.getReferencingPlatformFile();
 		File referencedPlatformFile = boardDescriptor.getreferencedPlatformFile();
@@ -732,6 +732,7 @@ public class Helpers extends Common {
 		removeAllEraseEnvironmentVariables(contribEnv, confDesc);
 
 		setTheEnvironmentVariablesSetTheDefaults(project.getName(), contribEnv, confDesc, boardsDescriptor);
+		setTheEnvironmentVariablesAddThePlatformTools(boardsDescriptor, contribEnv, confDesc);
 
 		// add the stuff that comes with the plugin that are marked as pre
 		setTheEnvironmentVariablesAddAFile(new String(), contribEnv, confDesc, pluginPreProcessingPlatformTxt, false);
@@ -747,7 +748,6 @@ public class Helpers extends Common {
 		if (referencingPlatfromFile != null && referencingPlatfromFile.exists()) {
 			setTheEnvironmentVariablesAddAFile(contribEnv, confDesc, referencingPlatfromFile);
 		}
-		setTheEnvironmentVariablesAddThePlatformInfo(boardsDescriptor, contribEnv, confDesc);
 
 		// add the boards file
 		setTheEnvironmentVariablesAddtheBoardsTxt(contribEnv, confDesc, boardsDescriptor, true);
@@ -819,7 +819,7 @@ public class Helpers extends Common {
 			setBuildEnvironmentVariable(confDesc, recipeKey, recipe);
 
 			String recipeParts[] = recipe.split(
-					"(\"\\$\\{A.OBJECT_FILE}\")|(\\$\\{A.OBJECT_FILES})|(\"\\$\\{A.SOURCE_FILE}\")|(\"[^\"]*\\$\\{A.ARCHIVE_FILE}\")|(\"[^\"]*\\$\\{A.ARCHIVE_FILE_PATH}\")",
+					"(\"\\$\\{A.object_file}\")|(\\$\\{A.object_files})|(\"\\$\\{A.source_file}\")|(\"[^\"]*\\$\\{A.archive_file}\")|(\"[^\"]*\\$\\{A.archive_file_path}\")",
 					3);
 			switch (recipeParts.length) {
 			case 0:
@@ -1003,11 +1003,11 @@ public class Helpers extends Common {
 	private static String MakeKeyString(String prefix, String string) {
 		String osString = "\\.\\.";
 		if (Platform.getOS().equals(Platform.OS_LINUX)) {
-			osString = "\\.LINUX";
+			osString = "\\.linux";
 		} else if (Platform.getOS().equals(Platform.OS_WIN32)) {
-			osString = "\\.WINDOWS";
+			osString = "\\.windows";
 		}
-		return prefix + string.toUpperCase().replaceAll(osString, new String());
+		return prefix + string.replaceAll(osString, new String());
 	}
 
 	/**

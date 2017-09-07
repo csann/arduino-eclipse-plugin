@@ -78,8 +78,8 @@ public class BoardDescriptor {
 	public static final String ENV_KEY_JANTJE_PACKAGE_ID = Const.ENV_KEY_JANTJE_START + "PACKAGE_ID";
 	public static final String ENV_KEY_JANTJE_ARCITECTURE_ID = Const.ENV_KEY_JANTJE_START + "ARCHITECTURE_ID";
 	public static final String ENV_KEY_JANTJE_BOARD_ID = Const.ENV_KEY_JANTJE_START + "BOARD_ID";
-	public static final String ENV_KEY_SERIAL_PORT = Const.ERASE_START + "SERIAL.PORT";
-	public static final String ENV_KEY_SERIAL_PORT_FILE = Const.ERASE_START + "SERIAL.PORT.FILE";
+	public static final String ENV_KEY_SERIAL_PORT = Const.ERASE_START + "serial.port";
+	public static final String ENV_KEY_SERIAL_PORT_FILE = Const.ERASE_START + "serial.port.file";
 
 	// preference nodes
 	private static final String NODE_ARDUINO = Activator.NODE_ARDUINO;
@@ -326,7 +326,7 @@ public class BoardDescriptor {
 			this.myWorkEclipseLocation = Common.getBuildEnvironmentVariable(confdesc, ENV_KEY_JANTJE_ECLIPSE_LOCATION,
 					"");
 
-			this.myOptions = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+			this.myOptions = new TreeMap<>();
 			IEnvironmentVariableManager envManager = CCorePlugin.getDefault().getBuildEnvironmentManager();
 			IContributedEnvironment contribEnv = envManager.getContributedEnvironment();
 			IEnvironmentVariable[] curVariables = contribEnv.getVariables(confdesc);
@@ -376,7 +376,7 @@ public class BoardDescriptor {
 		this.myUploadPort = new String();
 		this.myProgrammer = Defaults.getDefaultUploadProtocol();
 		this.myBoardID = boardID;
-		this.myOptions = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+		this.myOptions = new TreeMap<>();
 		this.myreferencingBoardsFile = boardsFile;
 		this.myTxtFile = new TxtFile(this.myreferencingBoardsFile);
 		if (options != null) {
@@ -392,7 +392,7 @@ public class BoardDescriptor {
 		this.myUploadPort = new String();
 		this.myProgrammer = Defaults.getDefaultUploadProtocol();
 		this.myBoardID = boardID;
-		this.myOptions = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+		this.myOptions = new TreeMap<>();
 		this.myreferencingBoardsFile = txtFile.getTxtFile();
 		this.myTxtFile = txtFile;
 		setDefaultOptions();
@@ -688,7 +688,7 @@ public class BoardDescriptor {
 	}
 
 	public void setOptions(Map<String, String> options) {
-		this.myOptions = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+		this.myOptions = new TreeMap<>();
 		this.myOptions.putAll(options);
 		calculateDerivedFields();
 	}
@@ -713,7 +713,7 @@ public class BoardDescriptor {
 
 	public String[] getUploadProtocols() {
 		if (this.myreferencingBoardsFile.exists()) {
-			return Programmers.getUploadProtocols(this.myreferencingBoardsFile.toString());
+			return Programmers.getUploadProtocols(this);
 		}
 		return new String[0];
 	}

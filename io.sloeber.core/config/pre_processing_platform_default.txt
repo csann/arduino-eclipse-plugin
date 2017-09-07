@@ -1,41 +1,43 @@
 #this file is processed without the adding of A to enable referencing non arduino set variables
 A.software=ARDUINO
-A.RECIPE.OBJCOPY.HEX.PATTERN={A.RECIPE.OBJCOPY.BIN.PATTERN}
-A.ARCHIVE_FILE=arduino.ar
-A.ARCHIVE_FILE_PATH={A.BUILD.PATH}/{A.ARCHIVE_FILE}
-A.ALT_SIZE_COMMAND="{A.COMPILER.PATH}{A.COMPILER.SIZE.CMD}" --format=avr --mcu={A.BUILD.MCU} "{A.BUILD.PATH}/{A.BUILD.PROJECT_NAME}.elf"
-A.BUILD.VARIANT.PATH={A.RUNTIME.PLATFORM.PATH}/variants/{A.BUILD.VARIANT}
-A.BUILD.CORE.PATH={A.RUNTIME.PLATFORM.PATH}/cores/{A.BUILD.CORE}
-A.archive_file_path={A.BUILD.PATH}/{A.ARCHIVE_FILE}
-A.runtime.IDE.version=10802
-A.BUILD.SYSTEM.PATH={A.RUNTIME.PLATFORM.PATH}/system
-A.JANTJE.USED.BOARDS_FILE={JANTJE.BOARDS_FILE}
-A.JANTJE.CORE.REFERENCED.PLATFORM={JANTJE.SELECTED.PLATFORM}
-A.JANTJE.VARIANT.REFERENCED.PLATFORM={JANTJE.SELECTED.PLATFORM}
-A.SERIAL.PORT={JANTJE.COM_PORT}
-A.BUILD.PATH={ProjDirPath}/{ConfigName}
-A.BUILD.PROJECT_NAME={ProjName}
-A.PACKAGES={eclipse_home}/arduinoPlugin/packages
+#A.RECIPE.OBJCOPY.HEX.PATTERN={A.RECIPE.OBJCOPY.BIN.PATTERN}
+A.ARCHIVE_FILE_PATH={A.archive_file_path}
+A.ARCHIVE_FILE={A.archive_file}
+A.archive_file=arduino.ar
+A.archive_file_path={A.build.path}/{A.archive_file}
+A.ALT_SIZE_COMMAND="{A.compiler.path}{A.compiler.size.cmd}" --format=avr --mcu={A.build.mcu} "{A.build.path}/{A.build.project_name}.elf"
+A.build.variant.path={A.runtime.platform.path}/variants/{A.build.variant}
+A.build.core.path={A.runtime.platform.path}/cores/{A.build.core}
+A.archive_file_path={A.build.path}/{A.archive_file}
+A.runtime.ide.version=10802
+A.build.system.path={A.runtime.platform.path}/system
+A.JANTJE.USED.BOARDS_FILE={JANTJE.boards_file}
+A.JANTJE.CORE.REFERENCED.PLATFORM={JANTJE.selected.platform}
+A.JANTJE.VARIANT.REFERENCED.PLATFORM={JANTJE.selected.platform}
+A.serial.port={JANTJE.COM_PORT}
+A.build.path={ProjDirPath}/{ConfigName}
+A.build.project_name={ProjName}
+A.packages={eclipse_home}/arduinoPlugin/packages
 
 
 #for esp8266 network upload
-A.tools.esp8266OTA={A.TOOLS.ESPTOOL.NETWORK_CMD}
-A.tools.esp8266OTA.upload.pattern={A.TOOLS.ESPTOOL.UPLOAD.NETWORK_PATTERN}
+A.tools.esp8266OTA={A.tools.esptool.network_cmd}
+A.tools.esp8266OTA.upload.pattern={A.tools.esptool.upload.network_pattern}
 A.esp8266.network.upload.tool=esp8266OTA
-A.TOOLS.ESPTOOL.NETWORK.PASSWORD={A.NETWORK.AUTH}
+A.tools.esptool.network.password={A.network.auth}
 
 #for yun shield to work
-A.TOOLS.AVRDUDE_REMOTE.UPLOAD.VERBOSE=-v
+A.tools.avrdude_remote.upload.verbose=-v
 
 #for due
-A.SERIAL.PORT.FILE={A.SERIAL.PORT}
+A.serial.port.file={A.serial.port}
 
 #to turn warnings on/off
-A.COMPILER.WARNING_FLAGS=-w
-A.COMPILER.WARNING_FLAGS.ALL=-Wall -Wextra
+A.compiler.warning_flags=-w
+A.compiler.warning_flags.all=-Wall -Wextra
 
 #for stm
 
-A.UPLOAD.ALTID=no_altID
-A.UPLOAD.USBID=no_altID
+A.upload.altid=no_altID
+A.upload.usbid=no_usbID
 
